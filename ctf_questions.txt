@@ -1,0 +1,17 @@
+Forensic--
+Question-1:
+(Easy)
+One day a friend of mine send me a message "base attribute is d" with a text file. Can you guys help me to understand what he wants to say?
+
+flag.txt
+Answer: CuetCTF{7h15_15_7h3_f1r57_h4lf_C0ngr4ts_pl4y3r}
+Writeup-- The message says base attribute is nV, means this text is encrypted using base. But this can be only base or base32, base64 we can try it one by one using cyberchef to find out which one is correct. After decrypting we find out it's only the first half!
+Then where is the second half? Here comes the second part of the message attribute is d, this means the second half might be in metadata as an attribute. We can use getfattr -d myfile.txt to check out the second half.
+
+Question-2:
+(Medium)
+As a Russian spy you find out that American has sent a message to Ukraine, now you have to report the message to your superiors. Do you know what is hidden in that flag?
+
+emd.jpg
+Answer: CuetCTF{St3g0_1s_V3ry_H4rd}
+Writeup-- As the problem suggest it is forensic type and the file is image our first work is to check the images metadata to find out this there anything unusual in the metadata, like naturally a metadata does not contain comments unless someone put one. Thus from checking metadata we have found an encrypted comment which we don't know what it could be. Again as the question focuses on the image of the flag, it can contain the hidden message either in some kind of metadata or the message can be embedded cause as we see the image of the flag does not seems like hides the message in other ways. Thus we can use steghide to find out whether there is any hidden message, but steghide needs passwords to open so from this we can understand the previous encrypted comment is the pass for the steghide.
